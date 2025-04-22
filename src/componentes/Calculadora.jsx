@@ -26,22 +26,31 @@ export default function Calculadora() {
     }
   }, [resultado]);
 
+  useEffect(() => {
+    if (resultado !== 0) {
+      const pantalla = document.querySelector(".pantalla");
+      pantalla.style.backgroundColor = "red"; // Cambiar a un color claro
+      setTimeout(() => {
+        pantalla.style.backgroundColor = ""; // Restaurar el color original
+      }, 500);
+    }
+  }, [resultado]);
+
   // accesibilidad → teclado
   useEffect(() => {
     function handleKeyDown(event) {
       const { key } = event; // Obtener la tecla presionada mediante destructuración
 
-      if (!isNaN(key)) { // Si es un número
+      if (!isNaN(key)) {
+        // Si es un número
         setNumeroActual((prev) => prev + key);
-
       } else if (key === ".") {
         setNumeroActual((prev) => (prev.includes(".") ? prev : prev + "."));
-
       } else if (["+", "-", "*", "/"].includes(key)) {
         setOperacionActual(key === "*" ? "x" : key); // si se presiona "*", se usa "x"
 
         if (numeroActual !== "") {
-          const numero = parseFloat(numeroActual) || 0; 
+          const numero = parseFloat(numeroActual) || 0;
           setResultado((prev) =>
             operacionActual
               ? calcularResultado(prev, numero, operacionActual)
@@ -49,7 +58,6 @@ export default function Calculadora() {
           );
           setNumeroActual("");
         }
-
       } else if (key === "Enter") {
         if (operacionActual && numeroActual !== "") {
           const numero = parseFloat(numeroActual);
@@ -59,15 +67,12 @@ export default function Calculadora() {
           setNumeroActual("");
           setOperacionActual(null);
         }
-
       } else if (key === "Backspace") {
         setNumeroActual((prev) => prev.slice(0, -1));
-
       } else if (key === "Escape") {
         setNumeroActual("");
         setResultado(0);
         setOperacionActual(null);
-        
       } else if (key === "r") {
         setNumeroActual(String(random()));
       }
