@@ -19,11 +19,65 @@ export default function Calculadora() {
   const [resultado, setResultado] = useState(0);
   const [operacionActual, setOperacionActual] = useState(null);
 
+  // algo creativo
   useEffect(() => {
     if (resultado === 2021) {
       confetti();
     }
   }, [resultado]);
+
+  // accesibilidad → teclado
+  useEffect(() => {
+    function handleKeyDown(event) {
+      const { key } = event; // Obtener la tecla presionada mediante destructuración
+
+      if (!isNaN(key)) { // Si es un número
+        setNumeroActual((prev) => prev + key);
+
+      } else if (key === ".") {
+        setNumeroActual((prev) => (prev.includes(".") ? prev : prev + "."));
+
+      } else if (["+", "-", "*", "/"].includes(key)) {
+        setOperacionActual(key === "*" ? "x" : key); // si se presiona "*", se usa "x"
+
+        if (numeroActual !== "") {
+          const numero = parseFloat(numeroActual) || 0; 
+          setResultado((prev) =>
+            operacionActual
+              ? calcularResultado(prev, numero, operacionActual)
+              : numero
+          );
+          setNumeroActual("");
+        }
+
+      } else if (key === "Enter") {
+        if (operacionActual && numeroActual !== "") {
+          const numero = parseFloat(numeroActual);
+          setResultado((prev) =>
+            calcularResultado(prev, numero, operacionActual)
+          );
+          setNumeroActual("");
+          setOperacionActual(null);
+        }
+
+      } else if (key === "Backspace") {
+        setNumeroActual((prev) => prev.slice(0, -1));
+
+      } else if (key === "Escape") {
+        setNumeroActual("");
+        setResultado(0);
+        setOperacionActual(null);
+        
+      } else if (key === "r") {
+        setNumeroActual(String(random()));
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [numeroActual, operacionActual, resultado]);
 
   function calcularResultado(prevResultado, numero, operacion) {
     switch (operacion) {
