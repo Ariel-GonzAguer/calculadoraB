@@ -26,15 +26,15 @@ export default function Calculadora() {
     }
   }, [resultado]);
 
-  useEffect(() => {
-    if (resultado !== 0) {
-      const pantalla = document.querySelector(".pantalla");
-      pantalla.style.backgroundColor = "red"; // Cambiar a un color claro
-      setTimeout(() => {
-        pantalla.style.backgroundColor = ""; // Restaurar el color original
-      }, 500);
-    }
-  }, [resultado]);
+//   useEffect(() => {
+//     if (resultado !== 0) {
+//       const pantalla = document.querySelector(".pantalla");
+//       pantalla.style.backgroundColor = "red"; // Cambiar a un color claro
+//       setTimeout(() => {
+//         pantalla.style.backgroundColor = ""; // Restaurar el color original
+//       }, 500);
+//     }
+//   }, [resultado]);
 
   // accesibilidad → teclado
   useEffect(() => {
