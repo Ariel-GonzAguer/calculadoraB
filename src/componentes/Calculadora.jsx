@@ -1,5 +1,6 @@
 // hooks
 import { useState } from "react";
+import { useEffect } from "react";
 
 // scripts
 import {
@@ -10,10 +11,19 @@ import {
   random,
 } from "../scripts/operaciones.js";
 
+// componentes
+import confetti from "canvas-confetti";
+
 export default function Calculadora() {
   const [numeroActual, setNumeroActual] = useState("");
   const [resultado, setResultado] = useState(0);
   const [operacionActual, setOperacionActual] = useState(null);
+
+  useEffect(() => {
+    if (resultado === 2021) {
+      confetti();
+    }
+  }, [resultado]);
 
   function calcularResultado(prevResultado, numero, operacion) {
     switch (operacion) {
@@ -81,7 +91,6 @@ export default function Calculadora() {
 
   return (
     <>
-      <h1>Calculadora</h1>
       <section className="calculadora">
         <section className="pantalla"> {numeroActual || resultado} </section>
 
@@ -89,7 +98,7 @@ export default function Calculadora() {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((num) => (
             <button
               key={num}
-              className={`btn btn-${num}`}
+              className={`btn btn-num`}
               onClick={() => handleClickNumero(num)}
             >
               {num}

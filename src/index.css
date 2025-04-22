@@ -11,20 +11,29 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: rgb(57, 150, 187);
+
+  & h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .calculadora {
   margin: 0 auto;
   padding: 1rem;
-  width: 50%;
-  max-width: 400px;
+  width: 20%;
+  min-width: 400px;
   height: 800px;
   max-height: 600px;
-  border: 1px solid black;
+  border: 3px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgb(68, 68, 68);
+  border-radius: 6px;
 
   & .pantalla {
     width: 100%;
@@ -46,5 +55,10 @@
     grid-template-rows: repeat(5, 1fr);
     gap: 10px;
     padding: 10px;
+    
+    & .btn {
+      border: 2px solid black;
+      font-size: 1.3rem;
+    }
   }
 }
