@@ -14,4 +14,8 @@ function dividir(a, b) {
   return a / b;
 }
 
-export { sumar, restar, multiplicar, dividir };
+function random() {
+  return Math.floor(Math.random() * 100);
+}
+
+export { sumar, restar, multiplicar, dividir, random };

@@ -1,23 +1,19 @@
 // hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // scripts
-import { sumar, restar, multiplicar, dividir } from "../scripts/operaciones.js";
+import {
+  sumar,
+  restar,
+  multiplicar,
+  dividir,
+  random,
+} from "../scripts/operaciones.js";
 
 export default function Calculadora() {
   const [numeroActual, setNumeroActual] = useState("");
   const [resultado, setResultado] = useState(0);
   const [operacionActual, setOperacionActual] = useState(null);
-
-  useEffect(() => {
-    console.log(numeroActual);
-    console.log(resultado);
-    console.log(operacionActual);
-  }, [numeroActual, resultado, operacionActual]);
-
-  function handleClickNumero(numero) {
-    setNumeroActual((prev) => prev + String(numero));
-  }
 
   function calcularResultado(prevResultado, numero, operacion) {
     switch (operacion) {
@@ -34,6 +30,10 @@ export default function Calculadora() {
     }
   }
 
+  function handleClickNumero(numero) {
+    setNumeroActual((prev) => prev + String(numero));
+  }
+
   function handleOperacion(event) {
     event.preventDefault();
     const operacion = event.target.innerText;
@@ -45,7 +45,7 @@ export default function Calculadora() {
     }
 
     if (numeroActual !== "") {
-      const numero = parseFloat(numeroActual);
+      const numero = parseFloat(numeroActual) || 0;
 
       if (operacionActual) {
         // Realizar la operación acumulada
@@ -64,10 +64,19 @@ export default function Calculadora() {
     }
   }
 
+  function handleBorrarUltimo() {
+    setNumeroActual((prev) => prev.slice(0, -1));
+  }
+
   function handleBorrarTodo() {
     setNumeroActual("");
     setResultado(0);
     setOperacionActual(null);
+  }
+
+  function handleRandom() {
+    const numero = random();
+    setNumeroActual(numero.toString());
   }
 
   return (
@@ -92,7 +101,9 @@ export default function Calculadora() {
           >
             .
           </button>
-          <button className="btn btn-random">Rndm</button>
+          <button className="btn btn-random" onClick={handleRandom}>
+            Rndm
+          </button>
           <button
             className="btn btn-sumar"
             onClick={(event) => handleOperacion(event)}
@@ -123,7 +134,9 @@ export default function Calculadora() {
           >
             =
           </button>
-          <button className="btn btn-borrar">Borrar</button>
+          <button className="btn btn-borrar" onClick={handleBorrarUltimo}>
+            Borrar
+          </button>
           <button
             className="btn btn-borrar-todo"
             onClick={() => handleBorrarTodo()}
