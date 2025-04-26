@@ -1,13 +1,3 @@
-# Requerimientos
-
-1. Crear componente App.jsx [x]
-2. Crear componente Calculadora.jsx (números, signos de operaciones, punto decimal, igual, borrar). [x]
-3. Crear funciones para operaciones aritméticas básicas (sumar, restar, multiplicar, dividir) → operaciones.js [x]
-4. Implementar la lógica de la calculadora. [x]
-5. Implementar Accesibilidad. [x]
-6. Implementar la UI de la calculadora. [x]
-7. Dar responsividad. [x]
-
 ## ideas creativas
 
 - usar emojis o iconos para los botones de las operaciones.

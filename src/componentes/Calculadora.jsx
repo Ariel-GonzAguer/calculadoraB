@@ -36,6 +36,7 @@ export default function Calculadora() {
 //     }
 //   }, [resultado]);
 
+
   // accesibilidad → teclado
   useEffect(() => {
     function handleKeyDown(event) {
@@ -84,6 +85,8 @@ export default function Calculadora() {
     };
   }, [numeroActual, operacionActual, resultado]);
 
+
+  // IMPLEMENTACION DE LA LOGICA DE LA CALCULADORA
   function calcularResultado(prevResultado, numero, operacion) {
     switch (operacion) {
       case "+":
@@ -99,10 +102,13 @@ export default function Calculadora() {
     }
   }
 
+  // HANDLERS
+  // CLICK EN NÚMEROS
   function handleClickNumero(numero) {
     setNumeroActual((prev) => prev + String(numero));
   }
 
+  // CLICK EN OPERACIONES
   function handleOperacion(event) {
     event.preventDefault();
     const operacion = event.target.innerText;
@@ -133,16 +139,19 @@ export default function Calculadora() {
     }
   }
 
+  // BORRAR ÚLTIMO NÚMERO
   function handleBorrarUltimo() {
     setNumeroActual((prev) => prev.slice(0, -1));
   }
 
+  // BORRAR TODO
   function handleBorrarTodo() {
     setNumeroActual("");
     setResultado(0);
     setOperacionActual(null);
   }
 
+  // BOTÓN RANDOM
   function handleRandom() {
     const numero = random();
     setNumeroActual(numero.toString());
